@@ -1,4 +1,8 @@
-apply plugin: "java"
+plugins {
+	id "java"
+	id "jacoco"
+	id "com.github.kt3k.coveralls" version "2.5.0"
+}
 
 sourceSets {
 	main.java.srcDir "src"
@@ -11,4 +15,11 @@ repositories {
 
 dependencies {
 	testCompile "junit:junit:4.12"
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled = true
+		html.enabled = true
+	}
 }
