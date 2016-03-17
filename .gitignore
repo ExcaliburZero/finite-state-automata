@@ -6,3 +6,6 @@ dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
+
+# Gradle
+.gradle
