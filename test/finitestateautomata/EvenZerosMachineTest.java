@@ -23,7 +23,9 @@
  */
 package finitestateautomata;
 
+import junitparams.*;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
@@ -33,27 +35,15 @@ import static org.junit.Assert.*;
  * @see finitestateautomata.EvenZerosMachine
  * @author Christopher Wells {@literal <cwellsny@nycap.rr.com>}
  */
+@RunWith(JUnitParamsRunner.class)
 public class EvenZerosMachineTest {
 
     /**
-     * Runs tests of the <code>EvenZerosMachine</code> class.
+     * Tests exception cases of the <code>EvenZerosMachine</code> class.
      */
     @Test
-    public void machineTest() {
-        EvenZerosMachine testMachine = new EvenZerosMachine("01010101");
-        assertTrue(testMachine.getResult());
-
-        testMachine = new EvenZerosMachine("010101");
-        assertFalse(testMachine.getResult());
-
-        testMachine = new EvenZerosMachine("01010");
-        assertFalse(testMachine.getResult());
-
-        testMachine = new EvenZerosMachine("0");
-        assertFalse(testMachine.getResult());
-
-        testMachine = new EvenZerosMachine("");
-        assertTrue(testMachine.getResult());
+    public void testMachineExceptions() {
+        EvenZerosMachine testMachine;
 
         try {
             testMachine = new EvenZerosMachine(null);
@@ -68,6 +58,26 @@ public class EvenZerosMachineTest {
         } catch (IllegalArgumentException ex) {
             assertTrue(true);
         }
+    }
+
+    /**
+     * Test several inputs and outputs for the <code>EvenZerosMachine</code>
+     * class.
+     */
+    @Test
+    @Parameters({
+        "0, false",
+        "01, false",
+        "001, true",
+        "01010101, true",
+        "010101, false",
+        "001, true",
+        "1, true",
+        ", true",
+    })
+    public void testMachineInput(String input, boolean expectedOutput) {
+        EvenZerosMachine machine = new EvenZerosMachine(input);
+        assertEquals(expectedOutput, machine.getResult());
     }
 
 }

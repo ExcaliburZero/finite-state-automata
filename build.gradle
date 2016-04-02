@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-	testCompile "junit:junit:4.12"
+	testCompile "junit:junit:4.12", "pl.pragmatists:JUnitParams:1.0.4"
 }
 
 jacocoTestReport {
