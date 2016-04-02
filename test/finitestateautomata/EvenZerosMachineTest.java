@@ -42,22 +42,25 @@ public class EvenZerosMachineTest {
      * Tests exception cases of the <code>EvenZerosMachine</code> class.
      */
     @Test
-    public void testMachineExceptions() {
+    @Parameters(method = "testMachineExceptionsParameters")
+    public void testMachineExceptions(String input, Class expectedException) {
         EvenZerosMachine testMachine;
 
         try {
-            testMachine = new EvenZerosMachine(null);
+            testMachine = new EvenZerosMachine(input);
             assertTrue(false);
-        } catch (NullPointerException ex) {
-            assertTrue(true);
+        } catch (Exception ex) {
+            assertEquals(expectedException, ex.getClass());
         }
+    }
 
-        try {
-            testMachine = new EvenZerosMachine("123");
-            assertTrue(false);
-        } catch (IllegalArgumentException ex) {
-            assertTrue(true);
-        }
+    private Object[] testMachineExceptionsParameters() {
+        return new Object[] {
+            new Object[]{null, new NullPointerException().getClass()},
+            new Object[]{"123", new IllegalArgumentException().getClass()},
+            new Object[]{"abc", new IllegalArgumentException().getClass()},
+            new Object[]{"010101g", new IllegalArgumentException().getClass()},
+        };
     }
 
     /**
